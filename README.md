@@ -1,4 +1,4 @@
-# This repository contains the codes for our paper 889: Joint Channel and Weight Pruning for Model Acceleration on Mobile Devices
+# Joint Channel and Weight Pruning for Model Acceleration on Mobile Devices
 
 ## Requirements
 
