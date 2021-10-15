@@ -1,0 +1,90 @@
+MODELINTENSITY:
+  type: Latency
+
+  runtime: convinfos/resnet18/runtime.npy
+
+MODELEVALUATION:
+  type: PSEvaluator
+
+  MODEL:
+    model: resnet18
+    devices: [0, 1, 2, 3]
+    kwargs:
+      __isdict__: True
+      num_classes: 100
+      bn_share_scale: True
+      bn_share_mv: False
+      nmodels: 128
+      group_size: 4
+
+  OPTIM:
+    CNS:
+      epochs: 10
+      nmodels_per_iter: 1
+      no_bias_decay: True
+      momentum: 0.9
+      weight_decay: 0.00004
+      LR:
+        lr_scheduler: cosine
+        warmup_epochs: 0
+        base_lr: 0.1
+        lr: 0.1
+    WP:
+      epochs: 20
+      nmodels_per_iter: 1
+      no_bias_decay: True
+      momentum: 0.9
+      weight_decay: 0.00004
+      LR:
+        lr_scheduler: cosine
+        warmup_epochs: 0
+        base_lr: 0.1
+        lr: 0.1
+
+  DATASET:
+    data: ImageNet
+    root: /data/ilsvrc12_raw
+    train_batch: 256
+    val_batch: 256
+    num_workers: 32
+    SPLIT:
+      num_classes: 100
+      train_samples_per_class: 500
+      val_samples_per_class: 50
+
+NSGAII:
+  ngenerations: 128
+  nindividuals: 64
+  individual_dims: -1
+  nsolutions: 64
+  mutation_prob: -1
+  plm_mu: 15
+  sbx_mu: 0.5
+  sbx_prob: 0.5
+  extension_factor: 1
+  lbound:
+    CNS:
+      bound: 0.5
+      fy: 0.8
+      ly: 0.5
+      strided: 0.6
+      residual: 0.9
+    WP:
+      bound: 0.3
+      fy: 0.8
+      ly: 0.5
+      strided: 0.8
+  ubound: 1
+
+  candidate_list: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+
+  SELECTION:
+    min_val: -1
+    max_val: -1
+    sample_mode: uniform
+    sandwich: True
+    nsamples: 4
+
+SEARCH:
+  wp_uniform: False
+  save: ./experiments

@@ -1,0 +1,73 @@
+type: SparseTrainer
+
+save: NONE
+
+root: &root /data/ilsvrc12_raw
+
+MODEL:
+  model: resnet18
+  devices: [0, 1, 2, 3]
+  kwargs:
+    __isdict__: True
+    group_size: 4
+  EXTRACT:
+    feature: NONE
+
+REGULAR:
+  OPTIM:
+    epochs: 120
+    weight_decay: 0.0001
+    momentum: 0.9
+    no_bias_decay: True
+    LR:
+      lr_scheduler: cosine
+      warmup_epochs: 5
+      base_lr: 0.001
+      lr: 0.256
+
+  DATASET:
+    data: ImageNet
+    root: *root
+    train_batch: 512
+    val_batch: 256
+    num_workers: 32
+
+ADMM:
+  OPTIM:
+    epochs: 60
+    weight_decay: 0.0001
+    momentum: 0.9
+    no_bias_decay: True
+    label_smooth: 0.1
+    rho: 0.01
+    LR:
+      lr_scheduler: constant
+      warmup_epochs: 0
+      base_lr: 0.005
+      lr: 0.005
+
+  DATASET:
+    data: ImageNet
+    root: *root
+    train_batch: 512
+    val_batch: 256
+    num_workers: 32
+
+FT:
+  OPTIM:
+    epochs: 60
+    weight_decay: 0.0
+    momentum: 0.9
+    no_bias_decay: True
+    LR:
+      lr_scheduler: cosine
+      warmup_epochs: 0
+      base_lr: 0.005
+      lr: 0.005
+
+  DATASET:
+    data: ImageNet
+    root: *root
+    train_batch: 512
+    val_batch: 256
+    num_workers: 32
