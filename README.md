@@ -16,13 +16,51 @@ For practical deep neural network design on mobile devices, it is essential to c
 
 | Method | Latency/ms | Accuracy |
 | ------ | ------- | -------- |
-| Uniform1$\times$ | 537 | 69.8 |
+| Uniform 1x | 537 | 69.8 |
 | DMCP | 341 | 69.7 |
 | APS | 363 | 70.3 |
 | **JCW** | 160 | 69.2 |
 |         | 194 | 69.7 |
 |         | 196 | 69.9 |
 |         | 224 | 70.2 |
+
+### MobileNetV1
+
+| Method | Latency/ms | Accuracy |
+| ------ | ---------- | -------- |
+| Uniform 1x | 167 | 70.9 |
+| Uniform 0.75x | 102 | 68.4 |
+| Uniform 0.5x | 53 | 64.4 |
+| AMC | 94 | 70.7 |
+| Fast | 61 | 68.4 |
+| AutoSlim | 99 | 71.5 |
+| AutoSlim | 55 | 67.9 |
+| USNet | 102 | 69.5 |
+| USNet | 53 | 64.2 |
+| **JCW** | 31 | 69.1 |
+|         | 39 | 69.9 |
+|         | 43 | 69.8 |
+|         | 54 | 70.3 |
+|         | 69 | 71.4 |
+
+### MobileNetV2
+
+| Method | Latency/ms | Accuracy |
+| ------ | ---------- | -------- |
+| Uniform 1x | 114 | 71.8 |
+| Uniform 0.75x | 71 | 69.8 |
+| Uniform 0.5x | 41 | 65.4 |
+| APS | 110 | 72.8 |
+| APS | 64 | 69.0 |
+| DMCP | 83 | 72.4 |
+| DMCP | 45 | 67.0 |
+| DMCP | 43 | 66.1 |
+| Fast | 89 | 72.0 |
+| Fast | 62 | 70.2 |
+| **JCW** | 30 | 69.1 |
+|         | 40 | 69.9 |
+|         | 44 | 70.8 |
+|         | 59 | 72.2 |
 
 ## Requirements
 
